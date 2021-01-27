@@ -24,10 +24,11 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`)
   .classed("chart", true);
 
-
+// Set initial selections for axes
 var selectedXAxis = "poverty";
 var selectedYAxis = "healthcare";
 
+// Create functions for updating x and yscales when axis selected
 function xScale(data, selectedXAxis) {
     var xLinearScale = d3.scaleLinear()
         .domain([d3.min(data, d=>d[selectedXAxis])-1, d3.max(data, d => d[selectedXAxis])+1])
@@ -42,8 +43,8 @@ function yScale(data, selectedYAxis) {
     return yLinearScale;
 };
 
-
-
+// Create functions for updating axes variables when axis selected
+function 
 
 
 
