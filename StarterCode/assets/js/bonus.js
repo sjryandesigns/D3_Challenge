@@ -110,9 +110,17 @@ function updateToolTips (circleGroup, selectedXAxis, selectedYAxis){
         });
 
     circlesGroup.call(toolTip);
-
     
-}
+    circlesGroup.on("mouseover", function(data){
+        toolTip.show(data);
+    })
+
+        .on("mouseout", function(data, index){
+            toolTip.hide(data);
+        });
+    return circlesGroup;
+
+};
 
 
 
