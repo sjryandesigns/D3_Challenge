@@ -1,8 +1,8 @@
 // @TODO: YOUR CODE HERE!
 
 // Define SVG area
-var svgWidth = window.innerWidth;
-var svgHeight = window.innerHeight;
+var svgWidth = 960;
+var svgHeight = 500;
 
 var margin = {
   top: 50,
@@ -22,3 +22,13 @@ var svg = d3.select("#scatter")
 
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+// Access data from csv and load in. Create then function
+d3.csv("assets/data/data.csv").then(function(data){
+    console.log(data);
+
+}
+
+
+
+);
