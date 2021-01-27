@@ -44,7 +44,24 @@ function yScale(data, selectedYAxis) {
 };
 
 // Create functions for updating axes variables when axis selected
-function 
+function updateXAxis (newXScale, xAxis) {
+    var bottomAxis = d3.axisBottom(newXScale);
+
+    xAxis.transition()
+        .duration(1000)
+        .call(bottomAxis);
+    return xAxis;
+};
+
+function updateYAxis (newXScale, yAxis) {
+    var leftAxis = d3.axisLeft(newXScale);
+
+    xAxis.transition()
+        .duration(1000)
+        .call(leftAxis);
+    return yAxis;
+};
+
 
 
 
