@@ -95,7 +95,7 @@ d3.csv("assets/data/data.csv").then(function(stateData){
         .text("Lacks Healthcare (%)");
 
 
-    // Tooltip append    
+    // Add tooltip using d3-tip
     var toolTip = d3.tip()
         .attr("class", "d3-tip")
         .offset([80, -60])
@@ -104,6 +104,7 @@ d3.csv("assets/data/data.csv").then(function(stateData){
         });
     chartGroup.call(toolTip);
 
+    // Create events for mouse over and mouse out for tool tips
     circlesGroup.on("mouseover", function(d){
         toolTip.show(d,this);
     })
@@ -120,6 +121,7 @@ d3.csv("assets/data/data.csv").then(function(stateData){
             toolTip.hide(d);
         });
 }
+// Error function
 , function(error) {
   console.log(error);
 });
