@@ -2,7 +2,7 @@
 
 // Define SVG area
 var svgWidth = 960;
-var svgHeight = 500;
+var svgHeight = 600;
 
 var margin = {
   top: 50,
@@ -63,15 +63,20 @@ d3.csv("assets/data/data.csv").then(function(stateData){
         .attr("r", 15)
         .classed("stateCircle", true);
 
-    // var circlesText = chartGroup.append("text")
-    //     .text(d => d.abbr)
-    //     .attr("x", d => xLinearScale(d.poverty))
-    //     .attr("y", d => yLinearScale(d.healthcare))
-    //     .classed("stateText", true);
+    var circlesText = chartGroup.selectAll("text")
+        .data(stateData)
+        .enter()
+        .append("text")
+        .attr("x", d => xScale(d.poverty))
+        .attr("y", d => yScale(d.healthcare))
+        .text(d => (d.abbr))
+        .classed("stateText", true)
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "central");
     
 
     chartGroup.append("text")
-        .attr("transform", `translate(${width / 2}, ${height + margin.top+10})`)
+        .attr("transform", `translate(${width / 2}, ${height + margin.top+15})`)
         .classed("aText", true)
         .text("In Poverty (%)");
         
@@ -88,3 +93,25 @@ d3.csv("assets/data/data.csv").then(function(stateData){
 , function(error) {
   console.log(error);
 });
+
+
+
+
+    // // Setup the tool tip.  Note that this is just one example, and that many styling options are available.
+    // // See original documentation for more details on styling: http://labratrevenge.com/d3-tip/
+    // var tool_tip = d3.tip()
+    //   .attr("class", "d3-tip")
+    //   .offset([-8, 0])
+    //   .html(function(d) { return "Radius: " + d; });
+    // svg.call(tool_tip);
+    
+    // // Now render the SVG scene, connecting the tool tip to each circle.
+    // var circles = svg.selectAll("circle").data(radii);
+    // circles.enter().append("circle")
+    //   .attr("r", function(d) { return d; })
+    //   .attr("cx", function(d, i) { return 50 + 50*i; })
+    //   .attr("cy", function(d, i) { return 50 + 50*i; })
+    //   .style("fill", "red")
+    //   .style("stroke", "black")
+    //   .on('mouseover', tool_tip.show)
+    //   .on('mouseout', tool_tip.hide);
