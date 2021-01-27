@@ -80,6 +80,39 @@ function updateLabels(circleLabels, newXScale, selectedXAxis, newYScale), select
     return circleLabels;
 };
 
+// Create function to circle group with new tooltips
+function updateToolTips (circleGroup, selectedXAxis, selectedYAxis){
+    if (selectedXAxis === "poverty"){
+        var xlabel = "In Poverty (%): ";
+    }
+    else if (selectedXAxis) === "age"){
+        var xlabelk = "Age (Median): ";
+    }
+    else{
+        var xlabel = "Household Income (Median): $";
+    };
+
+    if (selectedYAxis === "healthcare"){
+        var xlabel = "Lacks Healthcare (%): ";
+    }
+    else if (selectedYAxis) === "obesity"){
+        var xlabelk = "Obese (%): ";
+    }
+    else{
+        var xlabel = "Smokers (%): ";
+    }; 
+
+    var toolTip = d3.tip()
+        .attr("class", "d3-tip")
+        .offset([80, -60])
+        .html(d => {
+            return (`${d.state}, ${d.abbr} <br>${ylabel} ${d[selectedYAxis]} <br> ${xlabel} ${d[selectedXAxis]}`);
+        });
+
+    circlesGroup.call(toolTip);
+
+    
+}
 
 
 
@@ -171,8 +204,8 @@ function updateLabels(circleLabels, newXScale, selectedXAxis, newYScale), select
 //         .attr("class", "d3-tip")
 //         .offset([80, -60])
 //         .html(function(d){
-//             return (`${d.state}, ${d.abbr} <br>Poverty: ${d.poverty}% <br>Healthcare: ${d.healthcare}%`);
-//         });
+            return (`${d.state}, ${d.abbr} <br>Poverty: ${d.poverty}% <br>Healthcare: ${d.healthcare}%`);
+        });
 //     chartGroup.call(toolTip);
 
 //     // Create events for mouse over and mouse out for tool tips
