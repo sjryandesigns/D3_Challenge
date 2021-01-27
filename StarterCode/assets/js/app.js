@@ -64,7 +64,6 @@ d3.csv("assets/data/data.csv").then(function(stateData){
         .attr("r", 15)
         .classed("stateCircle", true);
 
-
     // Append text to circles on chart
     var circlesText = chartGroup.selectAll("text")
         .data(stateData)
@@ -80,6 +79,7 @@ d3.csv("assets/data/data.csv").then(function(stateData){
 
     chartGroup.append("text")
         .attr("transform", `translate(${width / 2}, ${height + margin.top})`)
+        .classed("aText", true)
         .classed("active", true)
         .text("In Poverty (%)");
         
@@ -89,72 +89,29 @@ d3.csv("assets/data/data.csv").then(function(stateData){
         .attr("x", 0-height/2)
         .attr("y", 0-margin.left)
         .attr("dy", "1em")
+        .classed("aText", true)
         .classed("active", true)
         .text("Lacks Healthcare (%)");
-        
+
+    var toolTip = d3.select("body")
+        .append("div")
+        .attr("class", "d3-tip");
+    // part b: create handlers
+    function onMouseover(d, i) {
+        toolTip.style("display", "block");
+        toolTip.html(`${d.state}, ${d.abbr} <br>Poverty: ${d.poverty}% <br>Healthcare: ${d.healthcare}%`)
+            .style("left", d3.event.pageX + "px")
+            .style("top", d3.event.pageY + "px");
+    }
+  
+    function onMouseout(d, i) {
+        toolTip.style("display", "none");
+    }
+  
+  // part c: add event listener
+    circlesGroup.on("mouseover", onMouseover).on("mouseout", onMouseout);
+   
     
-    // // Now render the SVG scene, connecting the tool tip to each circle.
-    // var circles = svg.selectAll("circle").data(radii);
-    // circles.enter().append("circle")
-    //   .attr("r", function(d) { return d; })
-    //   .attr("cx", function(d, i) { return 50 + 50*i; })
-    //   .attr("cy", function(d, i) { return 50 + 50*i; })
-    //   .style("fill", "red")
-    //   .style("stroke", "black")
-    //   .on('mouseover', tool_tip.show)
-    //   .on('mouseout', tool_tip.hide);
-
-    // //         // Setup the tool tip.  Note that this is just one example, and that many styling options are available.
-//     // See original documentation for more details on styling: http://labratrevenge.com/d3-tip/
-// var tool_tip = d3.tip()
-//     .attr("class", "d3-tip")
-//     .offset([-8,0])
-//     .html(function(d) { 
-//         return (`<strong>${d.state},${d.abbr}</strong><br>Poverty: ${d.poverty}%<br>Healthcare: ${d.healthcare}%`);
-//     });    
-// circlesGroup.call(tool_tip);
-// circlesGroup.on("mouseover", function(stateData){
-//     toolTip.show(data, this);
-//     d3.select(this).style("stroke", "black");
-// });
-// circlesGroup.on("mouseout", function(data, index){
-//     toolTip.hide(data, this)
-//     d3.select(this).style("stroke", "white");
-// });
-// return circlesGroup;
-
-//     // Initialize Tool Tip
-// var toolTip = d3.tip()
-//     .attr("class", "tooltip d3-tip")
-//     .offset([90, 90])
-//     .html(function(d) {
-//         return (`<strong>${d.abbr}</strong><br>${xLabel} ${d[chosenXAxis]}<br>${yLabel} ${d[chosenYAxis]}`);
-//     });
-//     // Create Circles Tooltip in the Chart
-// circlesGroup.call(toolTip);
-//     // Create Event Listeners to Display and Hide the Circles Tooltip
-// circlesGroup.on("mouseover", function(data) {
-//     toolTip.show(data, this);
-// })
-//       // onmouseout Event
-//     .on("mouseout", function(data) {
-//         toolTip.hide(data);
-//     });
-//     // Create Text Tooltip in the Chart
-//     textGroup.call(toolTip);
-//     // Create Event Listeners to Display and Hide the Text Tooltip
-//     textGroup.on("mouseover", function(data) {
-//       toolTip.show(data, this);
-//     })
-//       // onmouseout Event
-//     .on("mouseout", function(data) {
-//         toolTip.hide(data);
-//     });
-//     return circlesGroup;
-// }
-
-
-
 }
 , function(error) {
   console.log(error);
