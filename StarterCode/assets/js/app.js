@@ -1,8 +1,6 @@
 // @TODO: YOUR CODE HERE!
 
 // Define SVG area
-var svgArea = d3.select("body").select("svg");
-
 var svgWidth = window.innerWidth;
 var svgHeight = window.innerHeight;
 
@@ -16,3 +14,11 @@ var margin = {
 var height = svgHeight - margin.top - margin.bottom;
 var width = svgWidth - margin.left - margin.right;
 
+// Append svg and group
+var svg = d3.select("#scatter")
+  .append("svg")
+  .attr("height", svgHeight)
+  .attr("width", svgWidth);
+
+var chartGroup = svg.append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
