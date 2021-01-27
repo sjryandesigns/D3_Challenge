@@ -70,8 +70,8 @@ d3.csv("assets/data/data.csv").then(function(stateData){
         .data(stateData)
         .enter()
         .append("text")
-        .attr("x", d => xScale(d.poverty))
-        .attr("y", d => yScale(d.healthcare))
+        .attr("dx", d => xScale(d.poverty))
+        .attr("dy", d => yScale(d.healthcare))
         .text(d => (d.abbr))
         .classed("stateText", true)
         .attr("text-anchor", "middle")
@@ -91,18 +91,7 @@ d3.csv("assets/data/data.csv").then(function(stateData){
         .attr("dy", "1em")
         .classed("active", true)
         .text("Lacks Healthcare (%)");
-
-
-
-        // // Setup the tool tip.  Note that this is just one example, and that many styling options are available.
-    // // See original documentation for more details on styling: http://labratrevenge.com/d3-tip/
-    // var tool_tip = d3.tip()
-    //   .attr("class", "d3-tip")
-    //   .offset([-8,0])
-    //   .html(function(d) { 
-    //      return (`<strong>${d.abbr}</strong><br>Poverty: ${d.poverty}%<br>Healthcare: ${d.healthcare}%`);
-
-    // svg.call(tool_tip);
+        
     
     // // Now render the SVG scene, connecting the tool tip to each circle.
     // var circles = svg.selectAll("circle").data(radii);
@@ -115,11 +104,58 @@ d3.csv("assets/data/data.csv").then(function(stateData){
     //   .on('mouseover', tool_tip.show)
     //   .on('mouseout', tool_tip.hide);
 
+    // //         // Setup the tool tip.  Note that this is just one example, and that many styling options are available.
+//     // See original documentation for more details on styling: http://labratrevenge.com/d3-tip/
+// var tool_tip = d3.tip()
+//     .attr("class", "d3-tip")
+//     .offset([-8,0])
+//     .html(function(d) { 
+//         return (`<strong>${d.state},${d.abbr}</strong><br>Poverty: ${d.poverty}%<br>Healthcare: ${d.healthcare}%`);
+//     });    
+// circlesGroup.call(tool_tip);
+// circlesGroup.on("mouseover", function(stateData){
+//     toolTip.show(data, this);
+//     d3.select(this).style("stroke", "black");
+// });
+// circlesGroup.on("mouseout", function(data, index){
+//     toolTip.hide(data, this)
+//     d3.select(this).style("stroke", "white");
+// });
+// return circlesGroup;
+
+//     // Initialize Tool Tip
+// var toolTip = d3.tip()
+//     .attr("class", "tooltip d3-tip")
+//     .offset([90, 90])
+//     .html(function(d) {
+//         return (`<strong>${d.abbr}</strong><br>${xLabel} ${d[chosenXAxis]}<br>${yLabel} ${d[chosenYAxis]}`);
+//     });
+//     // Create Circles Tooltip in the Chart
+// circlesGroup.call(toolTip);
+//     // Create Event Listeners to Display and Hide the Circles Tooltip
+// circlesGroup.on("mouseover", function(data) {
+//     toolTip.show(data, this);
+// })
+//       // onmouseout Event
+//     .on("mouseout", function(data) {
+//         toolTip.hide(data);
+//     });
+//     // Create Text Tooltip in the Chart
+//     textGroup.call(toolTip);
+//     // Create Event Listeners to Display and Hide the Text Tooltip
+//     textGroup.on("mouseover", function(data) {
+//       toolTip.show(data, this);
+//     })
+//       // onmouseout Event
+//     .on("mouseout", function(data) {
+//         toolTip.hide(data);
+//     });
+//     return circlesGroup;
+// }
+
+
+
 }
 , function(error) {
   console.log(error);
 });
-
-
-
-
