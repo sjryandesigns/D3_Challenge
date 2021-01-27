@@ -54,7 +54,7 @@ function updateXAxis (newXScale, xAxis) {
 };
 
 function updateYAxis (newXScale, yAxis) {
-    var leftAxis = d3.axisLeft(newXScale);
+    var leftAxis = d3.axisLeft(newYScale);
 
     xAxis.transition()
         .duration(1000)
@@ -62,7 +62,14 @@ function updateYAxis (newXScale, yAxis) {
     return yAxis;
 };
 
-
+// Create function to update circle group with transitions
+function updateCircles(circlesGroup, newXScale, selectedXAxis, newYScale), selectedYAxis){
+    circleGroup.transition()
+        .duration(1000)
+        .attr("cx" d => newXScale(d[selectedXAxis]))
+        .attr("cy" d => newYScale(d[selectedYAxis]));
+    return circlesGroup
+}
 
 
 
