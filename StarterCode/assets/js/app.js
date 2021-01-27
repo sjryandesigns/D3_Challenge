@@ -63,7 +63,26 @@ d3.csv("assets/data/data.csv").then(function(stateData){
         .attr("r", 15)
         .classed("stateCircle", true);
 
+    // var circlesText = chartGroup.append("text")
+    //     .text(d => d.abbr)
+    //     .attr("x", d => xLinearScale(d.poverty))
+    //     .attr("y", d => yLinearScale(d.healthcare))
+    //     .classed("stateText", true);
+    
+
+    chartGroup.append("text")
+        .attr("transform", `translate(${width / 2}, ${height + margin.top+10})`)
+        .classed("aText", true)
+        .text("In Poverty (%)");
         
+      
+    chartGroup.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", 0-height/2)
+        .attr("y", 0-margin.left)
+        .attr("dy", "1em")
+        .classed("aText", true)
+        .text("Lacks Healthcare (%)");
 
 }
 , function(error) {
