@@ -68,9 +68,17 @@ function updateCircles(circlesGroup, newXScale, selectedXAxis, newYScale), selec
         .duration(1000)
         .attr("cx" d => newXScale(d[selectedXAxis]))
         .attr("cy" d => newYScale(d[selectedYAxis]));
-    return circlesGroup
-}
+    return circlesGroup;
+};
 
+// Create function to update circle labels with transitions
+function updateLabels(circleLabels, newXScale, selectedXAxis, newYScale), selectedYAxis){
+    circleLabels.transition()
+        .duration(1000)
+        .attr("x" d => newXScale(d[selectedXAxis]))
+        .attr("y" d => newYScale(d[selectedYAxis]));
+    return circleLabels;
+};
 
 
 
