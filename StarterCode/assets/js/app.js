@@ -7,7 +7,7 @@ var svgHeight = 600;
 var margin = {
   top: 50,
   right: 50,
-  bottom: 50,
+  bottom: 100,
   left: 50
 };
 
@@ -21,7 +21,8 @@ var svg = d3.select("#scatter")
   .attr("width", svgWidth);
 
 var chartGroup = svg.append("g")
-  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  .attr("transform", `translate(${margin.left}, ${margin.top})`)
+  .classed("chart", true);
 
 // Access data from csv and load in. Create then function
 d3.csv("assets/data/data.csv").then(function(stateData){
@@ -34,7 +35,7 @@ d3.csv("assets/data/data.csv").then(function(stateData){
 
     // Create band scale for horizontal and vertical axes
     var xScale = d3.scaleLinear()
-        .domain([d3.min(stateData, d=>d.poverty)*0.9, d3.max(stateData, d => d.poverty)*1.1])
+        .domain([d3.min(stateData, d=>d.poverty)-1, d3.max(stateData, d => d.poverty)+1])
         .range([0, width]);
 
     var yScale = d3.scaleLinear()
@@ -63,6 +64,8 @@ d3.csv("assets/data/data.csv").then(function(stateData){
         .attr("r", 15)
         .classed("stateCircle", true);
 
+
+    // Append text to circles on chart
     var circlesText = chartGroup.selectAll("text")
         .data(stateData)
         .enter()
@@ -76,8 +79,8 @@ d3.csv("assets/data/data.csv").then(function(stateData){
     
 
     chartGroup.append("text")
-        .attr("transform", `translate(${width / 2}, ${height + margin.top+15})`)
-        .classed("aText", true)
+        .attr("transform", `translate(${width / 2}, ${height + margin.top})`)
+        .classed("active", true)
         .text("In Poverty (%)");
         
       
@@ -86,23 +89,19 @@ d3.csv("assets/data/data.csv").then(function(stateData){
         .attr("x", 0-height/2)
         .attr("y", 0-margin.left)
         .attr("dy", "1em")
-        .classed("aText", true)
+        .classed("active", true)
         .text("Lacks Healthcare (%)");
 
-}
-, function(error) {
-  console.log(error);
-});
 
 
-
-
-    // // Setup the tool tip.  Note that this is just one example, and that many styling options are available.
+        // // Setup the tool tip.  Note that this is just one example, and that many styling options are available.
     // // See original documentation for more details on styling: http://labratrevenge.com/d3-tip/
     // var tool_tip = d3.tip()
     //   .attr("class", "d3-tip")
-    //   .offset([-8, 0])
-    //   .html(function(d) { return "Radius: " + d; });
+    //   .offset([-8,0])
+    //   .html(function(d) { 
+    //      return (`<strong>${d.abbr}</strong><br>Poverty: ${d.poverty}%<br>Healthcare: ${d.healthcare}%`);
+
     // svg.call(tool_tip);
     
     // // Now render the SVG scene, connecting the tool tip to each circle.
@@ -115,3 +114,12 @@ d3.csv("assets/data/data.csv").then(function(stateData){
     //   .style("stroke", "black")
     //   .on('mouseover', tool_tip.show)
     //   .on('mouseout', tool_tip.hide);
+
+}
+, function(error) {
+  console.log(error);
+});
+
+
+
+
