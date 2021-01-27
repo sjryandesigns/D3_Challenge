@@ -24,7 +24,12 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Access data from csv and load in. Create then function
-d3.csv("assets/data/data.csv").then(function(data){
-    console.log(data);
+d3.csv("assets/data/data.csv").then(function(stateData){
+    console.log(stateData);
+
+    stateData.forEach(function(d){
+        d.poverty = +d.poverty;
+        d.healthcare = +d.healthcare;
+    });
 
 });
