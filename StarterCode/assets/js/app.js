@@ -112,6 +112,13 @@ d3.csv("assets/data/data.csv").then(function(stateData){
             toolTip.hide(d);
         });
 
+    circlesText.on("mouseover", function(d){
+        toolTip.show(d,this);
+    })
+    
+        .on("mouseout", function(d){
+            toolTip.hide(d);
+        });
 }
 , function(error) {
   console.log(error);
