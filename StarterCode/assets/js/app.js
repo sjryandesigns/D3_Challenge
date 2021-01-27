@@ -31,6 +31,7 @@ d3.csv("assets/data/data.csv").then(function(stateData){
     stateData.forEach(function(d){
         d.poverty = +d.poverty;
         d.healthcare = +d.healthcare;
+        d.abbr = d.abbr;
     });
 
     // Create band scale for horizontal and vertical axes
@@ -65,18 +66,18 @@ d3.csv("assets/data/data.csv").then(function(stateData){
         .classed("stateCircle", true);
 
     // Append text to circles on chart
-    var circlesText = chartGroup.selectAll("text")
+    var circlesText = chartGroup.selectAll(".stateText")
         .data(stateData)
         .enter()
         .append("text")
-        .attr("dx", d => xScale(d.poverty))
-        .attr("dy", d => yScale(d.healthcare))
-        .text(d => (d.abbr))
         .classed("stateText", true)
+        .attr("x", d => xScale(d.poverty))
+        .attr("y", d => yScale(d.healthcare))
+        .text(d => (d.abbr))
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "central");
     
-
+    // Append text for axes to chart
     chartGroup.append("text")
         .attr("transform", `translate(${width / 2}, ${height + margin.top})`)
         .classed("aText", true)
@@ -93,25 +94,24 @@ d3.csv("assets/data/data.csv").then(function(stateData){
         .classed("active", true)
         .text("Lacks Healthcare (%)");
 
-    var toolTip = d3.select("body")
-        .append("div")
-        .attr("class", "d3-tip");
-    // part b: create handlers
-    function onMouseover(d, i) {
-        toolTip.style("display", "block");
-        toolTip.html(`${d.state}, ${d.abbr} <br>Poverty: ${d.poverty}% <br>Healthcare: ${d.healthcare}%`)
-            .style("left", d3.event.pageX + "px")
-            .style("top", d3.event.pageY + "px");
-    }
-  
-    function onMouseout(d, i) {
-        toolTip.style("display", "none");
-    }
-  
-  // part c: add event listener
-    circlesGroup.on("mouseover", onMouseover).on("mouseout", onMouseout);
-   
-    
+
+    // Tooltip append    
+    var toolTip = d3.tip()
+        .attr("class", "d3-tip")
+        .offset([80, -60])
+        .html(function(d){
+            return (`${d.state}, ${d.abbr} <br>Poverty: ${d.poverty}% <br>Healthcare: ${d.healthcare}%`);
+        });
+    chartGroup.call(toolTip);
+
+    circlesGroup.on("mouseover", function(d){
+        toolTip.show(d,this);
+    })
+
+        .on("mouseout", function(d){
+            toolTip.hide(d);
+        });
+
 }
 , function(error) {
   console.log(error);
