@@ -45,4 +45,12 @@ d3.csv("assets/data/data.csv").then(function(stateData){
     var bottomAxis = d3.axisBottom(xScale);
     var leftAxis = d3.axisLeft(yScale);
 
+    // Append group elements to chartGroup area and create axes 
+    chartGroup.append("g")
+        .call(leftAxis);
+
+    chartGroup.append("g")
+        .attr("transform", `translate(0, ${height})`)
+        .call(bottomAxis);
+
 });
