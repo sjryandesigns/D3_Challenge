@@ -34,11 +34,15 @@ d3.csv("assets/data/data.csv").then(function(stateData){
 
     // Create band scale for horizontal and vertical axes
     var xScale = d3.scaleLinear()
-        .domain([0, d3.max(stateData, d => d.poverty])
+        .domain([0, d3.max(stateData, d => d.poverty)])
         .range([0, width]);
 
     var yScale = d3.scaleLinear()
         .domain([0, d3.max(stateData, d => d.healthcare)])
         .range([height, 0]);
+
+    // Create functions and pass scales as arguments to create chart axes
+    var bottomAxis = d3.axisBottom(xScale);
+    var leftAxis = d3.axisLeft(yScale);
 
 });
